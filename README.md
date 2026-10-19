@@ -15,8 +15,6 @@ Kivo is a local-first, privacy-focused scope management application for freelanc
 
 ## Screenshots
 
-> *Screenshots can be placed in `docs/screenshots/` and linked below once captured.*
-
 ### 1. Dashboard & Project Ledger
 *Overview of active client engagements, locked baseline contracts, approved change orders, and the reconciled financial ledger.*
 
