@@ -20,32 +20,22 @@ Kivo is a local-first, privacy-focused scope management application for freelanc
 ### 1. Dashboard & Project Ledger
 *Overview of active client engagements, locked baseline contracts, approved change orders, and the reconciled financial ledger.*
 
-```
-[ Screenshot Placeholder: docs/screenshots/dashboard.png ]
-```
+![Dashboard & Project Ledger](docs/screenshots/Dashboard.png)
 
 ### 2. Scope Intake & AI Boundary Extraction
 *Transforming free-text RFP briefs into structured requirements, assumptions, out-of-scope exclusions, and clarification questions.*
 
-```
-[ Screenshot Placeholder: docs/screenshots/scope-intake.png ]
-```
+![Scope Intake & AI Boundary Extraction](docs/screenshots/Scope-intake.png)
 
 ### 3. Scope Creep Detector & Change Order Generator
 *Analyzing incoming client requests against the locked baseline, identifying scope deltas, and previewing billable additions.*
 
-```
-[ Screenshot Placeholder: docs/screenshots/scope-creep.png ]
-```
+![Scope Creep Detector & Change Order Generator](docs/screenshots/Scope-creep.png)
 
 ### 4. Client Review & Approval Portal
 *Standalone client-facing addendum page showing baseline contracts, itemized change requests, and approval actions.*
 
-```
-[ Screenshot Placeholder: docs/screenshots/client-review.png ]
-```
-
----
+![Client Review & Approval Portal](docs/screenshots/Client-review.png)---
 
 ## The Problem and Solution
 
