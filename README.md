@@ -1,127 +1,186 @@
-# Kivo — Local-First AI Scope Management for Freelancers
+# Kivo
 
-> **"Stop guessing. Start scoping."**
+> **Stop guessing. Start scoping.**
 
-Kivo is a local-first SaaS tool that helps freelancers turn vague client briefs into structured, locked scope baselines, detect scope creep when clients ask for extras, and generate transparent change-order proposals — all powered by a locally-running language model (no cloud API required).
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-aiosqlite-003B57?logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![Ollama](https://img.shields.io/badge/Ollama-Local_AI-111111?logo=ollama&logoColor=white)](https://ollama.ai/)
 
----
-
-## The Problem
-
-Scope creep is the silent revenue killer for freelancers and small agencies. A client brief that starts as "a simple five-page website" quietly grows into a filterable gallery, a blog with admin panel, multilingual support, and a redesigned checkout — often without any corresponding contract amendment or additional billing.
-
-Kivo solves three concrete problems:
-
-1. **Structured scope extraction** — turns a free-text client brief into categorised deliverables, assumptions, exclusions, and clarification questions, each tagged with provenance (`explicit` = client said it; `suggested` = AI inferred it).
-2. **Baseline locking** — freezes the agreed scope and its pricing into an immutable record before any work starts.
-3. **Scope-creep detection and change orders** — analyses new client messages against the locked baseline, calculates the effort and cost delta, and generates a shareable change-order proposal the client can approve or reject.
+Kivo is a local-first, privacy-focused scope management application for freelancers and independent software developers. It transforms ambiguous client briefs into defensible, locked scope baselines, detects out-of-scope additions in client messages, and generates transparent, itemized change orders with deterministic pricing — powered by a local language model running entirely on your machine.
 
 ---
 
-## Core Workflow
+## Screenshots
+
+> *Screenshots can be placed in `docs/screenshots/` and linked below once captured.*
+
+### 1. Dashboard & Project Ledger
+*Overview of active client engagements, locked baseline contracts, approved change orders, and the reconciled financial ledger.*
 
 ```
-1. Create project        →  name, client, hourly rate
-2. Paste brief           →  free-text client description
-3. Extract scope (AI)    →  Qwen2.5 3B produces deliverables / assumptions /
-                            exclusions / clarifications (provenance-tagged)
-4. Review & edit         →  adjust hours per item, toggle suggestions
-5. Lock baseline         →  immutable snapshot stored in SQLite
-6. Detect scope creep    →  paste new client message → AI delta analysis
-7. Generate change order →  effort + cost delta, shareable token link
-8. Client approves       →  status flips to "approved", ledger updated
-9. Dashboard             →  Baseline Contract + Approved Changes = Project Total
+[ Screenshot Placeholder: docs/screenshots/dashboard.png ]
 ```
+
+### 2. Scope Intake & AI Boundary Extraction
+*Transforming free-text RFP briefs into structured requirements, assumptions, out-of-scope exclusions, and clarification questions.*
+
+```
+[ Screenshot Placeholder: docs/screenshots/scope-intake.png ]
+```
+
+### 3. Scope Creep Detector & Change Order Generator
+*Analyzing incoming client requests against the locked baseline, identifying scope deltas, and previewing billable additions.*
+
+```
+[ Screenshot Placeholder: docs/screenshots/scope-creep.png ]
+```
+
+### 4. Client Review & Approval Portal
+*Standalone client-facing addendum page showing baseline contracts, itemized change requests, and approval actions.*
+
+```
+[ Screenshot Placeholder: docs/screenshots/client-review.png ]
+```
+
+---
+
+## The Problem and Solution
+
+### The Problem: Unbilled Scope Creep
+For freelancers, scope creep rarely starts with major pushback; it arrives in casual messages: *"Could you also quickly add a PDF export button, multi-currency conversion, and a sharing popup before launch?"* 
+
+Without a locked baseline and formal change-management process, freelancers face an uncomfortable dilemma: absorb hours of unbilled work or engage in awkward, unstructured renegotiations.
+
+### The Solution: Defensible, Local-First Scope Control
+Kivo provides a deterministic, transparent workflow to protect freelance engagements:
+
+1. **Establish an Immutable Baseline**: Parses raw client briefs into discrete deliverables, explicit exclusions, and assumptions before development begins.
+2. **Detect Scope Deltas**: Evaluates new client requests directly against the agreed baseline to isolate out-of-scope additions.
+3. **Deterministic Pricing**: Calculates billable deltas using exact decimal arithmetic (`Decimal` with `ROUND_HALF_UP`) based on agreed hourly rates.
+4. **Client-Facing Signoff**: Provides a shareable portal where clients can review line items, inspect baseline contracts, and record formal approval or rejection.
+
+---
+
+## Key Features
+
+- **Structured Scope Extraction**: Converts raw brief text into categorised deliverables, assumptions, exclusions, and clarification questions.
+- **Provenance Tracking**: Clearly distinguishes client-stated deliverables (`explicit`) from AI-suggested implementation details (`suggested`).
+- **Editable Deliverables & Boundaries**: Adjust hour estimates, task titles, and complexity ratings before finalizing.
+- **Baseline Scope Locking**: Locks agreed deliverables and pricing into an immutable SQLite record prior to project kickoff.
+- **Scope-Delta Identification**: Detects whether client messages introduce new features, scope expansions, or clarifications.
+- **Itemized Change Orders**: Automatically generates clear addenda breaking down additional hours and costs.
+- **Client Approval & Rejection Flow**: Shareable tokenized page allowing clients to approve additions, decline requests, or submit feedback.
+- **Project Ledger Reconciliation**: Real-time formula ensures totals reconcile without discrepancies:
+  $$\text{Baseline Contract} + \text{Approved Changes} = \text{Total Project Ledger}$$
+- **Duplicate Request Protection**:
+  - Reuses pending proposal tokens for equivalent client messages, preventing duplicate entries.
+  - Blocks duplicate generation for already-approved change orders with HTTP 409 Conflict.
+- **Local-First AI with Offline Fallback**: All inference runs locally via Ollama with zero external API dependencies. A deterministic fallback parser ensures uninterrupted operation if the local model is offline.
+
+---
+
+## Demo Walkthrough
+
+Follow this reproducible workflow to test Kivo locally:
+
+1. **Explore the Dashboard**: Open `http://localhost:5173`. Review existing engagements (e.g., *Acme SaaS Portal* or *Fintech Mobile App MVP*), inspect the agreed baseline effort, and view approved change orders.
+2. **Draft a Scope Baseline**: Navigate to **Scope Intake**. Paste an RFP brief or click one of the pre-loaded sample briefs. Click **Extract Defensible Scope**. Review the extracted requirements and provenance tags (`Client Explicit` vs `AI Suggested`).
+3. **Lock the Baseline**: Adjust effort hours or add clarifications as needed, then click **Save & Lock Scope Baseline**. The scope is now frozen in SQLite.
+4. **Detect Scope Creep**: Navigate to **Scope Creep**. Select your project and paste a client request (e.g., *"Can we add an automated statement export to PDF?"*). Click **Analyze Scope Creep**. Review the flagged scope additions.
+5. **Generate a Change Order**: Enter a title and click **Generate Change Proposal**. Kivo generates a secure token link (e.g., `/proposals/<token>`).
+6. **Client Signoff & Reconciliation**: Open the proposal link in the **Customer Review Portal**. Review the immutable baseline contract alongside the new change items. Enter client notes and click **Approve Scope Addition**. Return to the **Dashboard** to confirm that the project ledger reconciles immediately.
 
 ---
 
 ## Architecture
 
+```mermaid
+flowchart TD
+    subgraph Frontend ["Frontend (Vite + React 19 + TypeScript)"]
+        UI["UI Layer<br/>(Dashboard, Intake, Creep, Review)"]
+        API["API Client<br/>(/api/projects, /api/scope, /api/proposals)"]
+        UI --> API
+    end
+
+    subgraph Backend ["Backend (FastAPI + Python 3.9+)"]
+        Routes["API Routes<br/>(projects.py, scope.py, changes.py, health.py)"]
+        Pricing["Pricing Engine<br/>(Decimal ROUND_HALF_UP)"]
+        OllamaService["Ollama Client<br/>(Prompt Template & JSON Parser)"]
+        FallbackParser["Deterministic Fallback Parser<br/>(Rule-based Regex Fallback)"]
+        
+        Routes --> Pricing
+        Routes --> OllamaService
+        OllamaService -.->|Inference Failure or Timeout| FallbackParser
+    end
+
+    subgraph Storage ["Local Storage"]
+        DB[("SQLite Database<br/>(kivo.db via aiosqlite)")]
+    end
+
+    subgraph LocalAI ["Local LLM Host"]
+        OllamaEngine["Ollama Server<br/>(localhost:11434)"]
+        Model["Qwen 2.5 3B Instruct"]
+        OllamaEngine --- Model
+    end
+
+    API -->|HTTP REST| Routes
+    Routes --> DB
+    OllamaService -->|HTTP POST| OllamaEngine
 ```
-┌─────────────────────────────┐
-│  React SPA (Vite + TS)      │  localhost:5173
-│  Tailwind CSS, Lucide icons │
-│  src/components/            │
-│    DashboardView.tsx        │
-│    ScopeIntakeView.tsx      │
-│    ScopeCreepView.tsx       │
-│    ProposalReviewView.tsx   │
-│    Navbar.tsx               │
-└────────────┬────────────────┘
-             │ HTTP /api/*
-┌────────────▼────────────────┐
-│  FastAPI backend            │  localhost:8000
-│  app/routes/                │
-│    projects.py   (CRUD)     │
-│    scope.py      (extract)  │
-│    changes.py    (proposals)│
-│    health.py                │
-│  app/services/              │
-│    ollama_client.py         │
-│    pricing_engine.py        │
-└────────────┬────────────────┘
-      ┌──────┴──────┐
-      │             │
- SQLite (kivo.db)  Ollama
- aiosqlite         qwen2.5:3b
-                   localhost:11434
-```
 
-### Data model (SQLite)
+### Data Model (SQLite)
 
-| Table | Purpose |
-|---|---|
-| `projects` | One row per engagement (name, client, hourly rate, currency) |
-| `scope_baselines` | Immutable snapshot locked after client approval (hours, price) |
-| `scope_items` | Individual deliverables/assumptions/exclusions/questions per baseline |
-| `change_requests` | Scope-creep proposals (status, hours, cost, share token) |
-| `change_request_items` | Line items within each change order |
-
----
-
-## Local AI — Ollama + Qwen2.5 3B
-
-All inference runs **locally** via [Ollama](https://ollama.ai). No cloud API, no data sent externally.
-
-The backend calls `ollama_client.py` which:
-1. Sends the raw brief to `qwen2.5:3b` with a structured JSON prompt.
-2. Parses the response into deliverables, assumptions, exclusions, and clarification questions.
-3. Falls back to `_fallback_scope_extraction()` if the model is unavailable or returns malformed JSON — the fallback produces a deterministic, rule-based extraction so the app remains functional offline.
-
-**Pricing** uses Python `Decimal` with `ROUND_HALF_UP` throughout — no floating-point rounding errors.
-
----
-
-## Prerequisites
-
-| Dependency | Version | Purpose |
+| Table | Purpose | Key Attributes |
 |---|---|---|
-| Python | ≥ 3.9 | Backend runtime |
-| Node.js | ≥ 18 | Frontend build |
-| Ollama | latest | Local model host |
-| qwen2.5:3b model | — | Scope extraction & analysis |
+| `projects` | Engagement metadata | `id`, `name`, `client_name`, `hourly_rate`, `currency`, `status` |
+| `scope_baselines` | Immutable baseline contract | `id`, `project_id`, `total_estimated_hours`, `total_baseline_price` |
+| `scope_items` | Discrete deliverables & boundaries | `scope_baseline_id`, `category`, `title`, `suggested_hours`, `provenance` |
+| `change_requests` | Change order proposals | `id`, `project_id`, `status` (*sent/approved/rejected/superseded*), `share_token` |
+| `change_items` | Individual change deliverables | `change_request_id`, `title`, `impact_type`, `estimated_hours` |
 
 ---
 
-## Installation
+## Tech Stack and Local Setup
 
-### 1. Install Ollama and pull the model
+### Technology Stack
+- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS, Lucide React
+- **Backend**: FastAPI, Python 3.9+, Pydantic v2, aiosqlite, HTTPX, Uvicorn
+- **Database**: SQLite 3 (managed asynchronously via `aiosqlite`)
+- **Local AI**: Ollama with `qwen2.5:3b`
+
+### Prerequisites
+- **Python**: Version 3.9 or higher
+- **Node.js**: Version 18 or higher (with `npm`)
+- **Ollama**: Installed from [ollama.ai](https://ollama.ai/)
+
+---
+
+### Step-by-Step Installation
+
+#### 1. Download Local AI Model
+In your terminal, pull the recommended 3-billion parameter model:
 
 ```bash
-# Install from https://ollama.ai, then:
 ollama pull qwen2.5:3b
 ```
 
-### 2. Backend
+Ensure Ollama is running in the background (`http://localhost:11434`).
+
+#### 2. Backend Setup
+From the repository root:
 
 ```bash
 cd backend
 python3 -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
+source venv/bin/activate       # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Frontend
+#### 3. Frontend Setup
+From the repository root:
 
 ```bash
 cd frontend
@@ -130,102 +189,92 @@ npm install
 
 ---
 
-## Running Locally
+### Running the Application
 
-Open **two terminals**:
+Open two separate terminal windows:
 
+**Terminal 1 — Backend:**
 ```bash
-# Terminal 1 — Backend (from /backend)
+cd backend
 PYTHONPATH=. venv/bin/uvicorn app.main:app --reload --port 8000
+```
 
-# Terminal 2 — Frontend (from /frontend)
+**Terminal 2 — Frontend:**
+```bash
+cd frontend
 npm run dev
 ```
 
-Then open **http://localhost:5173** in your browser.
+Open your browser to **http://localhost:5173**.
 
-The backend health endpoint at `http://localhost:8000/api/health` returns Ollama connectivity status and model availability.
+To verify backend connectivity and Ollama model status, inspect the health endpoint at **http://localhost:8000/api/health**.
 
 ---
 
-## Tests
+## Tests and Verification
+
+### Backend Pytest Suite
+The backend includes a comprehensive automated test suite covering unit pricing logic, API routes, regression safeguards, and workflow validation.
+
+Run the test suite from the `backend/` directory:
 
 ```bash
-# From /backend (with venv activated)
 PYTHONPATH=. pytest tests/ -v
 ```
 
-**Test suite (23 tests across 4 files):**
+**Test Coverage (23 tests across 4 test modules):**
 
-| File | What it covers |
+| Test Module | Scope of Coverage |
 |---|---|
-| `test_api.py` | Health endpoint, scope extraction validation, project CRUD |
-| `test_pricing_engine.py` | Hourly rate × hours, fractional hours, negative guards, totals |
-| `test_quality_regression.py` | Provenance integrity, approval/rejection persistence, ledger reconciliation, deduplication & pending reuse, idempotency, fallback parsing |
-| `test_workflow.py` | Full end-to-end scope intake; validation error states |
+| `tests/test_api.py` | Health checks, input validation, and project CRUD operations |
+| `tests/test_pricing_engine.py` | Hourly rate multiplication, fractional hours (0.25h increments), negative-value guards, and Decimal rounding |
+| `tests/test_quality_regression.py` | Provenance classification, approval persistence across refresh, ledger reconciliation, proposal deduplication, pending reuse, HTTP 409 conflict detection, superseded order exclusion, and offline fallback |
+| `tests/test_workflow.py` | End-to-end scope intake lifecycle and error-handling boundary states |
 
-All 23 tests pass (verified: Python 3.9.6 + pytest 8.4.2, runtime ~58s).
+*Status: All 23 tests passing.*
 
----
-
-## Production Build
+### Frontend Production Build
+Validate TypeScript types and compile the optimized production bundle:
 
 ```bash
-# From /frontend
-npm run build     # outputs to frontend/dist/
+cd frontend
+npm run build
 ```
 
-Verified clean build: 0 TypeScript errors, 0 Vite warnings, 317 kB JS bundle (88 kB gzipped).
+*Status: Production build compiles cleanly with zero TypeScript errors.*
 
 ---
 
-## What Is Explicitly Not Included
+## Security, Privacy, Limitations, and Roadmap
 
-- Payment processing
-- Multi-user / team accounts
-- Email delivery of change-order links
-- Cloud hosting / deployment pipeline
-- CMS or content editing
-- Custom domain or SSL setup
+### Privacy & Security Highlights
+- **100% Local Inference**: Client briefs and sensitive project communications never leave your local environment.
+- **Zero Third-Party API Keys**: Operates without external cloud LLM dependencies, API keys, or billing accounts.
+- **SQL Injection Defenses**: All database interactions use parameterized SQL statements through `aiosqlite`.
+- **Idempotency & Double-Billing Defenses**: Change request generation utilizes text normalization, per-project locks, and conflict verification to prevent ledger corruption.
+
+### Current Limitations
+- **Single-User Workspace**: Designed for independent freelancers working on a single machine; multi-user permissions and role-based access control (RBAC) are not implemented.
+- **Non-Binding Cost Estimates**: Calculations are structured estimates to assist billing discussions; they do not constitute formal legal counsel or legally binding contracts.
+- **Local Storage**: Data is stored in a local SQLite file (`kivo.db`). Multi-device cloud synchronization is not currently supported.
+- **Manual Link Distribution**: Change order review links must be copied and shared with clients manually (email/SMS delivery is not integrated).
+
+### Planned Improvements
+- [ ] Exportable PDF change order addenda with cryptographic timestamping.
+- [ ] Custom hourly rate profiles per deliverable category (e.g., architecture vs design).
+- [ ] Webhook integration for real-time notifications (Slack, Discord) on client decision.
+- [ ] CSV / JSON ledger export for import into accounting platforms.
 
 ---
 
-## Project Structure
+## Contributing and License
 
-```
-Kivo/
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── database.py
-│   │   ├── routes/
-│   │   │   ├── projects.py
-│   │   │   ├── scope.py
-│   │   │   ├── changes.py
-│   │   │   └── health.py
-│   │   └── services/
-│   │       ├── ollama_client.py
-│   │       └── pricing_engine.py
-│   ├── tests/
-│   │   ├── test_api.py
-│   │   ├── test_pricing_engine.py
-│   │   ├── test_quality_regression.py
-│   │   └── test_workflow.py
-│   ├── requirements.txt
-│   └── pytest.ini
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── DashboardView.tsx
-│   │   │   ├── ScopeIntakeView.tsx
-│   │   │   ├── ScopeCreepView.tsx
-│   │   │   ├── ProposalReviewView.tsx
-│   │   │   └── Navbar.tsx
-│   │   ├── api/
-│   │   │   └── client.ts
-│   │   ├── App.tsx
-│   │   └── index.css
-│   ├── package.json
-│   └── vite.config.ts
-└── README.md
-```
+### Contributing
+Contributions, issue reports, and feedback are welcome. If you are submitting code changes:
+1. Fork the repository and create your feature branch.
+2. Ensure backend tests pass (`PYTHONPATH=. pytest tests/ -v`).
+3. Ensure frontend builds cleanly (`npm run build`).
+4. Submit a clear, descriptive pull request.
+
+### License
+No formal open-source license has been applied to this repository yet. All rights are currently reserved by the author.
