@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient: Deep Charcoal with Midnight Violet undertone -->
+    <linearGradient id="kivoBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141624"/>
+      <stop offset="50%" stop-color="#0E101A"/>
+      <stop offset="100%" stop-color="#090A10"/>
+    </linearGradient>
+
+    <!-- Outer Rim Glow Gradient -->
+    <linearGradient id="kivoRim" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.7"/>
+      <stop offset="30%" stop-color="#8B5CF6" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#4C1D95" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.6"/>
+    </linearGradient>
+
+    <!-- Subtle Inner Border -->
+    <linearGradient id="kivoInnerStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <!-- Left Pillar Stem Gradient -->
+    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#DDD6FE"/>
+      <stop offset="25%" stop-color="#A78BFA"/>
+      <stop offset="65%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+
+    <!-- Upper Arm Ribbon Gradient: Light Lavender sweep -->
+    <linearGradient id="upperRibbonGrad" x1="20%" y1="90%" x2="90%" y2="10%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="25%" stop-color="#8B5CF6"/>
+      <stop offset="55%" stop-color="#C4B5FD"/>
+      <stop offset="85%" stop-color="#EDE9FE"/>
+      <stop offset="100%" stop-color="#F5F3FF"/>
+    </linearGradient>
+
+    <!-- Lower Leg Ribbon Gradient: Electric Violet -->
+    <linearGradient id="lowerRibbonGrad" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#5B21B6"/>
+      <stop offset="40%" stop-color="#6D28D9"/>
+      <stop offset="75%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+
+    <!-- Ribbon Fold Shadow for clean depth separation -->
+    <linearGradient id="foldShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="36" y="36" width="440" height="440" rx="98" fill="url(#kivoBg)"/>
+  <rect x="36" y="36" width="440" height="440" rx="98" stroke="url(#kivoRim)" stroke-width="3.5" fill="none"/>
+  <rect x="39" y="39" width="434" height="434" rx="95" stroke="url(#kivoInnerStroke)" stroke-width="1.5" fill="none"/>
+
+  <!-- Geometric K Monogram Group -->
+  <g id="k-monogram">
+    <!-- 1. Left Vertical Pillar (Stem) -->
+    <rect x="150" y="144" width="76" height="224" rx="26" fill="url(#stemGrad)"/>
+
+    <!-- 2. Lower Diagonal Leg -->
+    <path d="M 226 250
+             C 246 250 264 268 280 286
+             L 334 354
+             C 339 360 346 368 356 368
+             H 384
+             L 298 258
+             C 284 240 266 230 242 228
+             Z"
+          fill="url(#lowerRibbonGrad)"/>
+
+    <!-- 3. Ribbon Fold Shadow on Lower Leg -->
+    <path d="M 226 250
+             C 240 250 255 258 268 270
+             L 255 285
+             C 242 272 232 265 226 265
+             Z"
+          fill="url(#foldShadow)"/>
+
+    <!-- 4. Upper Diagonal Ribbon Arm -->
+    <path d="M 150 296
+             C 150 254 186 226 236 192
+             L 310 144
+             H 380
+             L 272 226
+             C 234 256 226 276 226 304
+             C 226 314 218 322 208 322
+             C 192 322 170 318 150 296
+             Z"
+          fill="url(#upperRibbonGrad)"/>
+  </g>
+</svg>

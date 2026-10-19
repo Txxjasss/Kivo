@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="favBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#171926"/>
+      <stop offset="100%" stop-color="#0A0B12"/>
+    </linearGradient>
+    <linearGradient id="favRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#6D28D9" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="favStem" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C4B5FD"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="favUpper" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="45%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#EDE9FE"/>
+    </linearGradient>
+    <linearGradient id="favLower" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6D28D9"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="8" y="8" width="112" height="112" rx="26" fill="url(#favBg)"/>
+  <rect x="8" y="8" width="112" height="112" rx="26" stroke="url(#favRim)" stroke-width="2" fill="none"/>
+
+  <!-- K Monogram -->
+  <!-- Left Pillar -->
+  <rect x="36" y="34" width="20" height="60" rx="7" fill="url(#favStem)"/>
+
+  <!-- Lower Leg -->
+  <path d="M 56 63
+           L 84 94
+           H 96
+           L 73 66
+           C 68 61 63 58 58 57
+           Z"
+        fill="url(#favLower)"/>
+
+  <!-- Upper Ribbon Arm -->
+  <path d="M 36 74
+           C 36 62 46 54 59 45
+           L 78 34
+           H 95
+           L 68 55
+           C 58 63 56 68 56 75
+           Z"
+        fill="url(#favUpper)"/>
+</svg>

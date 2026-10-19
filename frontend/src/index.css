@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* Background scale */
+  --color-charcoal-950: #0B0D11;
+  --color-charcoal-900: #0D0F14;
+  --color-charcoal-850: #171923;
+  --color-charcoal-800: #1A1D24;
+  --color-charcoal-700: #262A34;
+  --color-charcoal-600: #363B47;
+  --color-charcoal-500: #525968;
+  --color-charcoal-400: #7E8695;
+  --color-charcoal-300: #A8B0C0;
+  --color-charcoal-200: #D0D5DE;
+  --color-charcoal-100: #EEF0F4;
+
+  /* Midnight Violet — primary accent */
+  --color-violet-accent: #8B5CF6;
+  --color-violet-hover:  #9D72FF;
+  --color-violet-glow:   rgba(139, 92, 246, 0.18);
+  --color-violet-subtle: rgba(139, 92, 246, 0.10);
+
+  /* Lavender — secondary accent */
+  --color-lavender-accent: #C4B5FD;
+  --color-lavender-muted:  #A78BFA;
+
+  /* Text */
+  --color-warm-white:   #F4F4F5;
+  --color-warm-surface: #171923;
+}
+
+:root {
+  color-scheme: dark;
+  background-color: #0D0F14;
+  color: #F4F4F5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #0D0F14;
+  color: #F4F4F5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular figures for rates, prices, and numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0F14;
+}
+::-webkit-scrollbar-thumb {
+  background: #262A34;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #363B47;
+}
+
+/* Focus rings — violet tint */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
